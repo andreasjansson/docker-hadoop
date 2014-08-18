@@ -11,25 +11,37 @@ serverurl=unix:///tmp/supervisor.sock
 supervisor.rpcinterface_factory = supervisor.rpcinterface:make_main_rpcinterface
 
 [program:sshd]
-command = /usr/sbin/sshd -D
+command = /usr/sbin/sshd -o PermitRootLogin=yes -D
 autorestart = true
 
 {% if ROLE == 'NAMENODE' %}
 
 [program:namenode]
-command = /opt/hadoop/sbin/hadoop-daemon.sh --config /etc/hadoop --script hdfs start namenode
+command = hdfs --config /etc/hadoop namenode
+stdout_logfile = /var/log/hadoop/namenode.stdout
+stderr_logfile = /var/log/hadoop/namenode.stderr
+autostart = false
 
 {% elif ROLE == 'RESOURCEMANAGER' %}
 
 [program:resourcemanager]
-command = /opt/hadoop/sbin/yarn-daemon.sh --config /etc/hadoop start resourcemanager
+command = yarn --config /etc/hadoop resourcemanager
+stdout_logfile = /var/log/hadoop/resourcemanager.stdout
+stderr_logfile = /var/log/hadoop/resourcemanager.stderr
+autostart = false
 
 {% elif ROLE == 'SLAVE' %}
 
 [program:datanode]
-command = /opt/hadoop/sbin/hadoop-daemon.sh --config /etc/hadoop --script hdfs start datanode
+command = hdfs --config /etc/hadoop datanode
+stdout_logfile = /var/log/hadoop/datanode.stdout
+stderr_logfile = /var/log/hadoop/datanode.stderr
+autostart = false
 
 [program:nodemanager]
-command = /opt/hadoop/sbin/yarn-daemon.sh --config /etc/hadoop start nodemanager
+command = yarn --config /etc/hadoop nodemanager
+stdout_logfile = /var/log/hadoop/nodemanager.stdout
+stderr_logfile = /var/log/hadoop/nodemanager.stderr
+autostart = false
 
-{% end %}
+{% endif %}

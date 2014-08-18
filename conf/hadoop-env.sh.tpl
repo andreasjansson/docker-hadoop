@@ -21,9 +21,6 @@
 # set JAVA_HOME in this file, so that it is correctly defined on
 # remote nodes.
 
-# The java implementation to use.
-export JAVA_HOME=/usr/lib/jvm/java-7-openjdk-amd64/
-
 # The jsvc implementation to use. Jsvc is required to run secure datanodes.
 #export JSVC_HOME=${JSVC_HOME}
 

@@ -5,7 +5,7 @@
 
   <property>
     <name>yarn.resourcemanager.hostname</name>
-    <value>{{ RESOURCEMANAGER_URI }}</value>
+    <value>{% if ROLE == 'RESOURCEMANAGER' %}0.0.0.0{% else %}{{ RESOURCEMANAGER_HOST }}{% endif %}</value>
   </property>    
 
   <property>
@@ -15,7 +15,12 @@
 
   <property>
     <name>yarn.resourcemanager.scheduler.class</name>
-    <value>org.apache.hadoop.yarn.server.resourcemanager.scheduler.capacity.CapacityScheduler</value>
+    <value>org.apache.hadoop.yarn.server.resourcemanager.scheduler.fair.FairScheduler</value>
+  </property>
+
+  <property>
+    <name>yarn.nodemanager.address</name>
+    <value>0.0.0.0:50001</value>
   </property>
 
 </configuration>

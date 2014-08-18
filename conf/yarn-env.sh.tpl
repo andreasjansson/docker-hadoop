@@ -19,10 +19,6 @@ export HADOOP_YARN_USER=yarn
 # resolve links - $0 may be a softlink
 export YARN_CONF_DIR=/etc/hadoop
 
-# some Java parameters
-# export JAVA_HOME=/home/y/libexec/jdk1.6.0/
-export JAVA_HOME=/usr/lib/jvm/java-7-openjdk-amd64/
-  
 JAVA=$JAVA_HOME/bin/java
 JAVA_HEAP_MAX=-Xmx{{ JAVA_HEAP_MAX | default("2000m") }}
 

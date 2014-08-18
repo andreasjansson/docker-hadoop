@@ -20,17 +20,12 @@
 
   <property>
     <name>fs.defaultFS</name>
-    <value>hdfs://{{ NAMENODE_URI }}:{{ NAMENODE_PORT | default("50070") }}/</value>
+    <value>hdfs://{% if ROLE == 'NAMENODE' %}0.0.0.0{% else %}{{ NAMENODE_HOST }}{% endif %}:8020/</value>
   </property>
 
   <property>
     <name>io.file.buffer.size</name>
     <value>131072</value>
-  </property>
-
-  <property>
-    <name>hadoop.tmp.dir</name>
-    <value>/var/hadoop/tmp</value>
   </property>
 
 </configuration>
